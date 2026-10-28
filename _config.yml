@@ -1,5 +1,7 @@
 # GitHub Pages (Vorschau der Website). Ordner mit "_" am Anfang (z. B. _quellen) veröffentlicht
-# GitHub Pages nicht. Diese Dateien bleiben im Repo, gehören aber nicht auf die öffentliche Seite:
+# GitHub Pages nicht. Jekyll liefert .htaccess standardmäßig mit aus, deshalb "include" leeren.
+# Diese Dateien bleiben im Repo, gehören aber nicht auf die öffentliche Seite:
+include: []
 exclude:
   - REGELN.md
   - README.md
