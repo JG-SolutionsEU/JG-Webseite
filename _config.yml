@@ -1,6 +1,5 @@
-# GitHub Pages (Vorschau der Website). Ordner mit "_" am Anfang (z. B. _quellen) und
-# Dateien mit "." am Anfang (.htaccess) veröffentlicht GitHub Pages ohnehin nicht.
-# Diese Dateien bleiben im Repo, gehören aber nicht auf die öffentliche Seite:
+# GitHub Pages (Vorschau der Website). Ordner mit "_" am Anfang (z. B. _quellen) veröffentlicht
+# GitHub Pages nicht. Diese Dateien bleiben im Repo, gehören aber nicht auf die öffentliche Seite:
 exclude:
   - REGELN.md
   - README.md
