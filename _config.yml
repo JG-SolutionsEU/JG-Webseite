@@ -5,3 +5,5 @@ exclude:
   - REGELN.md
   - README.md
   - kontakt-senden.php
+  - .htaccess
+  - .gitignore
