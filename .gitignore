@@ -1,0 +1,9 @@
+# Testdateien und System-Müll
+zz-*.html
+*.bak
+*.log
+Thumbs.db
+desktop.ini
+.DS_Store
+.claude-flow/
+__pycache__/

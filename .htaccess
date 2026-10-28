@@ -1,0 +1,101 @@
+# ==========================================================================
+# JG Solutions – Apache-Konfiguration (IONOS Webhosting), Website im Demodern-Stil
+# Saubere URLs (/kontakt statt /kontakt.html), HTTPS, eine Domain-Variante
+# (ohne www, wie Canonical und Sitemap), Kompression, Caching, Sicherheits-Header.
+# ==========================================================================
+
+DirectoryIndex index.html
+Options -Indexes
+ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
+
+AddType font/woff2 .woff2
+AddType image/webp .webp
+AddType image/svg+xml .svg
+AddType application/manifest+json .webmanifest
+
+# Es gibt sowohl die Datei leistungen.html als auch den Ordner /leistungen/.
+# Ohne diese Zeile leitet Apache /leistungen automatisch auf /leistungen/ um.
+DirectorySlash Off
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Interne Arbeitsordner sperren (am besten gar nicht erst hochladen)
+RewriteRule ^(_[^/]*|docs|original|node_modules|\.git|\.claude[^/]*)(/|$) - [F,L]
+
+# HTTPS + ohne www in einem Schritt (eine einzige 301-Weiterleitung)
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://jg-solutions.eu%{REQUEST_URI} [L,R=301,NE]
+
+# Alte URL der Briefing-Seite gibt es in dieser Version nicht mehr
+RewriteRule ^pb-malwerk-fragebogen(\.html)?$ /kontakt [R=301,L]
+
+# 1) /index und /index.html (auch in Unterordnern) -> Ordner-URL
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.*/)?index(\.html)?[\s?]
+RewriteRule ^ /%1 [R=301,L]
+
+# 2) /seite.html -> /seite  (nur wenn die .html-URL direkt aufgerufen wurde)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.+)\.html[\s?]
+RewriteRule ^ /%1 [R=301,L]
+
+# 3) /leistungen/ -> /leistungen  (wenn es dazu eine leistungen.html gibt)
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# 4) /seite -> seite.html intern ausliefern
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# ---------- Interne Dateien sperren ----------
+<IfModule mod_authz_core.c>
+<FilesMatch "(^\.|\.(zip|rar|7z|md|py|bak|old|orig|tmp|swp|sql|log|ini|ps1|sh|json|psd|ai|fig|sketch)$)">
+  Require all denied
+</FilesMatch>
+</IfModule>
+
+# ---------- Sicherheits-Header ----------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+  # Content-Security-Policy: kein Inline-JavaScript, alles liegt in /js/ (JSON-LD wird nicht
+  # ausgeführt). Fremde Quellen nur für Cal.com (lädt erst nach Klick) und Web3Forms (Quiz).
+  # 'unsafe-inline' bei style-src braucht Cal.com für seine Inline-Styles.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' https://app.cal.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.cal.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://app.cal.com https://api.cal.com; frame-src https://app.cal.com https://cal.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+
+  # HSTS erst aktivieren, wenn HTTPS sicher läuft (Zertifikat bei IONOS aktiv):
+  # Header always set Strict-Transport-Security "max-age=31536000"
+
+  # HTML nicht lange cachen, damit Änderungen sofort sichtbar sind
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# ---------- Caching ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+  # CSS/JS: 1 Woche. Bei Änderungen die Versionsnummer (?v=1) in den Links erhöhen.
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/javascript "access plus 1 week"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+
+# ---------- Kompression ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript image/svg+xml application/manifest+json
+</IfModule>

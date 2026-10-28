@@ -1,0 +1,59 @@
+<section class="page-hero">
+  <div class="container">
+    {{krumen}}
+    <span class="eyebrow">Kontakt</span>
+    <h1>Lass uns über dein Projekt sprechen.</h1>
+    <p class="lead">Schreib mir, worum es geht. Ich melde mich innerhalb von 24 Stunden, kostenlos und unverbindlich. Oder <a href="#termin">buch dir direkt einen Termin</a> für ein kostenloses Erstgespräch.</p>
+  </div>
+</section>
+
+<section class="section section--tight" aria-labelledby="wege-titel">
+  <div class="container contact-grid">
+    <div>
+      <h2 id="wege-titel">Direkt erreichen.</h2>
+      <ul class="contact-list">
+        <li><small>E-Mail</small><a href="mailto:info@jg-solutions.eu">info@jg-solutions.eu</a></li>
+        <li><small>Telefon</small><a href="tel:+4917624004201">+49 176 24004201</a></li>
+        <li><small>WhatsApp</small><a href="https://wa.me/4917624004201" target="_blank" rel="noopener noreferrer">Nachricht schreiben<span class="sr-only"> (öffnet in neuem Tab)</span></a></li>
+        <li><small>Standort</small>Kürten, Rheinisch-Bergischer Kreis</li>
+        <li><small>Reaktionszeit</small>In der Regel innerhalb von 24 Stunden</li>
+      </ul>
+      <div class="quiz-box">
+        <b>Lieber geführt statt Formular?</b>
+        <p>Beantworte ein paar kurze Fragen und ich verstehe sofort, worum es geht.</p>
+        <button type="button" class="btn" data-quiz-open>Kostenlose Analyse starten{{ico:pfeil}}</button>
+      </div>
+    </div>
+    <div>
+      <h2 class="sr-only">Kontaktformular</h2>
+      <form class="form" data-contact-form action="{{R}}kontakt-senden.php" method="POST" novalidate>
+        <input type="hidden" name="ts" value="">
+        <div class="form-row">
+          <div class="field"><label for="name">Name *</label><input type="text" id="name" name="name" required autocomplete="name" placeholder="Max Mustermann"></div>
+          <div class="field"><label for="email">E-Mail *</label><input type="email" id="email" name="email" required autocomplete="email" placeholder="max@beispiel.de"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="phone">Telefon</label><input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="Optional"></div>
+          <div class="field"><label for="topic">Thema</label>
+            <select id="topic" name="topic"><option>Webseite</option><option>Shopify Shop</option><option>Automatisierung</option><option>Visitenkarten</option><option>SEO &amp; Sichtbarkeit</option><option>Branding &amp; Print</option><option>KI &amp; Chatbot</option><option>Sonstiges</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="message">Nachricht *</label><textarea id="message" name="message" required placeholder="Erzähl mir kurz von deinem Vorhaben …"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="botcheck">Bitte leer lassen</label><input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off"></div>
+        <label class="consent"><input type="checkbox" name="datenschutz" value="zugestimmt" required><span>Ich habe die <a href="{{R}}datenschutz">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage einverstanden. *</span></label>
+        <button type="submit" class="btn btn--fill btn--block">Anfrage senden{{ico:pfeil}}</button>
+        <p class="form-note" role="status">* Pflichtfelder · Deine Daten werden nur zur Bearbeitung der Anfrage genutzt.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="termin" aria-labelledby="termin-titel">
+  <div class="container">
+    <div class="split">
+      <h2 id="termin-titel">Lieber direkt einen Termin?</h2>
+      <p class="lead">Wähle einen freien Termin für dein kostenloses und unverbindliches Erstgespräch. Die Bestätigung kommt direkt per E-Mail.</p>
+    </div>
+    <div class="reveal" data-cal-inline></div>
+  </div>
+</section>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jg-solutions.eu/sitemap.xml
