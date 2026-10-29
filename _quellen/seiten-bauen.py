@@ -33,7 +33,7 @@ TEL_LINK = "tel:+4917624004201"
 MAIL = "info@jg-solutions.eu"
 WHATSAPP = "https://wa.me/4917624004201"
 CSS_V = "7"
-JS_V = "3"
+JS_V = "4"
 # Setzt die Klasse "js" sofort im <head>, damit Animationen nicht erst sichtbar aufblitzen.
 # Der Hash steht in der CSP der .htaccess (wird unten in main() automatisch eingetragen).
 INLINE_JS = "document.documentElement.classList.add('js')"

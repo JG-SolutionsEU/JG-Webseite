@@ -104,6 +104,38 @@
     reveals.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* Kennzahlen zählen hoch, sobald sie ins Bild kommen ([data-count], z. B. "100 %", "2–4 Wo.").
+     Alle Zahlen im Text laufen gleichzeitig von 0 auf ihren Wert, Einheiten bleiben stehen. */
+  var zaehler = document.querySelectorAll("[data-count]");
+  if (zaehler.length && "IntersectionObserver" in window && !reduceMotion) {
+    var hochzaehlen = function (el, verzoegerung) {
+      var ziel = el.textContent;
+      var teile = ziel.split(/(\d+)/);
+      var zeige = function (f) {
+        el.textContent = teile.map(function (t) { return /^\d+$/.test(t) ? String(Math.round(+t * f)) : t; }).join("");
+      };
+      zeige(0);
+      var start = null, dauer = 1400;
+      var schritt = function (now) {
+        if (start === null) start = now + verzoegerung;
+        var t = Math.min(1, Math.max(0, (now - start) / dauer));
+        zeige(1 - Math.pow(1 - t, 3)); // schnell los, sanft auslaufen
+        if (t < 1) window.requestAnimationFrame(schritt); else el.textContent = ziel;
+      };
+      window.requestAnimationFrame(schritt);
+      // Falls der Browser Frames drosselt (Hintergrund-Tab): Endwert sicher setzen
+      setTimeout(function () { start = -Infinity; el.textContent = ziel; }, verzoegerung + dauer + 300);
+    };
+    var zio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        zio.unobserve(en.target);
+        en.target.querySelectorAll("b").forEach(function (b, i) { hochzaehlen(b, 150 + i * 120); });
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+    zaehler.forEach(function (el) { zio.observe(el); });
+  }
+
   /* Projekt-Slider: Pfeile + Zähler "01 / 03", Wischen über natives Scrollen */
   document.querySelectorAll("[data-slider]").forEach(function (root) {
     var track = root.querySelector(".slider-track");
