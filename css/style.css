@@ -352,6 +352,20 @@ main { padding-top: var(--header-h); }
   .proj:nth-child(even) .proj-media { order: 2; }
 }
 
+/* Gestapelte Karten (ab 900 px und genug Höhe): Jedes Projekt bleibt oben kleben, das nächste
+   schiebt sich darüber; js/main.js setzt --s (Größe) und --d (Abdunkeln) der unteren Karte. */
+@media (min-width: 900px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .proj-list { gap: 12vh; padding-bottom: 8vh; }
+  .proj {
+    position: sticky; top: calc(var(--header-h) + 24px);
+    padding: clamp(24px, 2.6vw, 44px); background: #fff; border: 1px solid var(--c-line);
+    transform-origin: 50% 0; transform: scale(var(--s, 1)); will-change: transform;
+  }
+  .proj:nth-child(2) { top: calc(var(--header-h) + 40px); }
+  .proj:nth-child(3) { top: calc(var(--header-h) + 56px); }
+  .proj::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--d, 0); pointer-events: none; }
+}
+
 /* ---------- Ablauf ---------- */
 .steps { list-style: none; display: grid; gap: 0; margin-top: clamp(40px, 5vw, 72px); counter-reset: step; }
 .step { padding: 24px 0 32px; border-top: 1px solid var(--c-ink); }

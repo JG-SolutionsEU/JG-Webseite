@@ -157,6 +157,29 @@
     if (handyStart) zeige("handy");
   });
 
+  /* Projekte-Seite: gestapelte Karten. Schiebt sich die nächste Karte heran, wird die
+     darunterliegende bis auf 94 % kleiner und leicht dunkler (Werte als CSS-Variablen). */
+  var karten = [].slice.call(document.querySelectorAll(".proj-list > .proj"));
+  var stapelMq = window.matchMedia("(min-width: 900px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)");
+  if (karten.length > 1) {
+    var stapeln = function () {
+      for (var i = 0; i < karten.length - 1; i++) {
+        var p = 0;
+        if (stapelMq.matches) {
+          var naechste = karten[i + 1];
+          var oben = parseFloat(getComputedStyle(naechste).top) || 0;
+          var h = window.innerHeight;
+          p = Math.min(1, Math.max(0, (h - naechste.getBoundingClientRect().top) / (h - oben)));
+        }
+        karten[i].style.setProperty("--s", (1 - 0.06 * p).toFixed(4));
+        karten[i].style.setProperty("--d", (0.25 * p).toFixed(3));
+      }
+    };
+    window.addEventListener("scroll", stapeln, { passive: true });
+    window.addEventListener("resize", stapeln);
+    stapeln();
+  }
+
   /* Projekt-Slider: Pfeile + Zähler "01 / 03", Wischen über natives Scrollen */
   document.querySelectorAll("[data-slider]").forEach(function (root) {
     var track = root.querySelector(".slider-track");

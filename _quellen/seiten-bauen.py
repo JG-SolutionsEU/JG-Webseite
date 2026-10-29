@@ -32,8 +32,8 @@ TEL = "+49 176 24004201"
 TEL_LINK = "tel:+4917624004201"
 MAIL = "info@jg-solutions.eu"
 WHATSAPP = "https://wa.me/4917624004201"
-CSS_V = "9"
-JS_V = "6"
+CSS_V = "10"
+JS_V = "7"
 # Setzt die Klasse "js" sofort im <head>, damit Animationen nicht erst sichtbar aufblitzen.
 # Der Hash steht in der CSP der .htaccess (wird unten in main() automatisch eingetragen).
 INLINE_JS = "document.documentElement.classList.add('js')"
@@ -297,11 +297,11 @@ def block_projektliste(R):
         desktop = img(p["bild"], p["alt"], "(min-width: 900px) 56vw, 92vw", R)
         handy = img(p["bild"] + "-phone", p["alt"] + " auf dem Handy", "(min-width: 900px) 18vw, 50vw", R)
         li.append(
-            f'<li class="proj reveal" data-ansicht="desktop">'
+            f'<li class="proj" data-ansicht="desktop">'
             f'<a class="proj-media" href="{p["url"]}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">'
             f'<span class="proj-view proj-view--desktop">{desktop}</span>'
             f'<span class="proj-view proj-view--handy"><span class="phone">{handy}</span></span></a>'
-            f'<div class="proj-text"><span class="slide-num">{pad(i)} / {pad(n)} · {p["art"]}</span>'
+            f'<div class="proj-text reveal"><span class="slide-num">{pad(i)} / {pad(n)} · {p["art"]}</span>'
             f'<h2>{p["name"]}</h2><p>{p["text"]}</p>'
             f'<div class="ansicht-schalter" role="group" aria-label="Ansicht {p["name"]}">'
             f'<button type="button" data-zeige="desktop" aria-pressed="true">{ico("monitor")}Desktop</button>'
