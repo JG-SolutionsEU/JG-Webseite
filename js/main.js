@@ -57,12 +57,21 @@
   var burger = document.querySelector(".burger");
   var menu = document.getElementById("mobile-menu");
   if (burger && menu) {
+    var zuTimer;
     var setMenu = function (open) {
       burger.setAttribute("aria-expanded", String(open));
       burger.querySelector(".burger-label").textContent = open ? "Schließen" : "Menü";
-      menu.hidden = !open;
       document.body.classList.toggle("menu-open", open);
-      if (open) { var first = menu.querySelector("a"); if (first) first.focus(); }
+      clearTimeout(zuTimer);
+      if (open) {
+        menu.hidden = false;
+        void menu.offsetWidth; // Layout erzwingen, damit die Übergänge ab "unsichtbar" starten
+        menu.classList.add("is-open");
+        var first = menu.querySelector("a"); if (first) first.focus({ preventScroll: true });
+      } else {
+        menu.classList.remove("is-open");
+        zuTimer = setTimeout(function () { menu.hidden = true; }, reduceMotion ? 0 : 300);
+      }
     };
     burger.addEventListener("click", function () { setMenu(burger.getAttribute("aria-expanded") !== "true"); });
     document.addEventListener("keydown", function (e) {

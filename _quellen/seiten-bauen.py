@@ -32,8 +32,8 @@ TEL = "+49 176 24004201"
 TEL_LINK = "tel:+4917624004201"
 MAIL = "info@jg-solutions.eu"
 WHATSAPP = "https://wa.me/4917624004201"
-CSS_V = "7"
-JS_V = "4"
+CSS_V = "8"
+JS_V = "5"
 # Setzt die Klasse "js" sofort im <head>, damit Animationen nicht erst sichtbar aufblitzen.
 # Der Hash steht in der CSP der .htaccess (wird unten in main() automatisch eingetragen).
 INLINE_JS = "document.documentElement.classList.add('js')"
@@ -447,8 +447,10 @@ def header(seite, R, home):
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
   <nav aria-label="Mobile Navigation"><ul>{mob}</ul></nav>
-  <button type="button" class="btn btn--fill btn--block" data-quiz-open>Kostenlose Analyse starten{ico("pfeil")}</button>
-  <div class="m-meta"><span>Direkt erreichen</span><a href="{TEL_LINK}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a></div>
+  <div class="m-unten">
+    <button type="button" class="btn btn--fill btn--block" data-quiz-open>Kostenlose Analyse starten{ico("pfeil")}</button>
+    <div class="m-meta"><span>Direkt erreichen</span><a href="{TEL_LINK}">{TEL}</a><a href="mailto:{MAIL}">{MAIL}</a><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp schreiben<span class="sr-only"> (öffnet in neuem Tab)</span></a></div>
+  </div>
 </div>
 """
 
