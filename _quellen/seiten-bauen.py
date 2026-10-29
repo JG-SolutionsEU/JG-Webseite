@@ -32,7 +32,7 @@ TEL = "+49 176 24004201"
 TEL_LINK = "tel:+4917624004201"
 MAIL = "info@jg-solutions.eu"
 WHATSAPP = "https://wa.me/4917624004201"
-CSS_V = "6"
+CSS_V = "7"
 JS_V = "3"
 # Setzt die Klasse "js" sofort im <head>, damit Animationen nicht erst sichtbar aufblitzen.
 # Der Hash steht in der CSP der .htaccess (wird unten in main() automatisch eingetragen).
@@ -218,7 +218,35 @@ FAQ = [
     ("Arbeitest du auch mit bestehenden Seiten?", "Klar. Ich kann bestehende Webseiten und Shops überarbeiten, erweitern oder komplett neu aufsetzen."),
 ]
 
-NAV = [("Leistungen", "leistungen"), ("Ablauf", "#ablauf"), ("Projekte", "referenzen"),
+# FAQ-Seite: Fragen nach Themen. Antworten nur mit echten Angaben; Unbekanntes als
+# [PLATZHALTER: …] markieren (diese Fragen kommen nicht ins FAQPage-Schema).
+FAQ_GRUPPEN = [
+    ("Kosten & Zahlung", [
+        FAQ[0],
+        ("Gibt es laufende Kosten?", "Für Domain und Hosting fallen kleine laufende Kosten beim Anbieter an. Bei Shopify Shops berechnet Shopify zusätzlich eigene monatliche Gebühren. Wartung und Support sind optional und auf Wunsch als planbares Monatspaket möglich."),
+        ("Wie läuft die Bezahlung?", "[PLATZHALTER: z. B. Anzahlung bei Auftrag, Rest beim Launch, Zahlung per Überweisung]"),
+    ]),
+    ("Ablauf & Zusammenarbeit", [
+        ("Wie läuft ein Projekt ab?", "In vier Schritten: Anfrage, Konzept, Umsetzung, Launch. Das Erstgespräch ist kostenlos und unverbindlich. Bevor gebaut wird, siehst du Design und Struktur und gibst Feedback."),
+        FAQ[1],
+        ("Arbeitest du nur im Bergischen Land?", "Ich sitze in Kürten und arbeite viel für Unternehmen in Bergisch Gladbach, Köln und dem Rheinisch-Bergischen Kreis. Da fast alles online abgestimmt wird, betreue ich Kunden in ganz Deutschland."),
+        ("Was brauchst du von mir?", "Am besten Logo, Fotos und Texte oder ein paar Stichpunkte zu deinem Angebot. Fehlt etwas, kein Problem: Wir klären im Erstgespräch, was ich übernehme."),
+        ("Wie schnell meldest du dich?", "In der Regel innerhalb von 24 Stunden, per E-Mail, Telefon oder WhatsApp."),
+    ]),
+    ("Technik & Pflege", [
+        FAQ[2],
+        FAQ[3],
+        ("Kümmerst du dich um Domain und Hosting?", "Ja, auf Wunsch richte ich beides für dich ein, in der Regel bei IONOS, und bringe die Seite dort online."),
+        ("Was passiert nach dem Launch?", "Auf Wunsch übernehme ich Wartung und Support: regelmäßige Updates und Sicherheits-Checks, Backups und kleine Änderungen. Du hast einen festen Ansprechpartner, mich."),
+        ("Druckst du Visitenkarten und Flyer selbst?", "Nein. Ich gestalte alles druckfertig und organisiere den Druck gern über eine Partner-Druckerei. Du bekommst alles fertig geliefert."),
+    ]),
+    ("Datenschutz & Recht", [
+        ("Braucht meine Website einen Cookie-Banner?", "Meine Seiten baue ich so, dass beim Aufruf keine Cookies gesetzt und keine Daten an Dritte übertragen werden: Schriften liegen lokal, Karten oder Kalender laden erst nach Klick. Dann ist meist kein Cookie-Banner nötig. Willst du Statistik oder Werbe-Tracking, kommt ein echter Einwilligungs-Banner dazu."),
+        ("Bekomme ich Impressum und Datenschutzerklärung?", "Ich erstelle Entwürfe, die zu dem passen, was deine Seite wirklich nutzt. Das ist keine Rechtsberatung: Lass die Texte vor dem Livegang von einem Anwalt oder einem Dienst wie eRecht24 prüfen."),
+    ]),
+]
+
+NAV = [("Leistungen", "leistungen"), ("FAQ", "faq"), ("Projekte", "referenzen"),
        ("Über mich", "ueber-uns"), ("Kontakt", "kontakt")]
 
 
@@ -291,6 +319,18 @@ def block_kacheln(R):
     return f'<ul class="tiles">{"".join(li)}</ul>'
 
 
+def faq_antwort(a):
+    return re.sub(r"\[PLATZHALTER: ([^\]]+)\]", lambda m: f'<span class="placeholder">[PLATZHALTER: {m.group(1)}]</span>', a)
+
+
+def block_faq_seite():
+    teile = []
+    for i, (thema, liste) in enumerate(FAQ_GRUPPEN, 1):
+        d = "".join(f'<details><summary>{q}{ico("plus")}</summary><p>{faq_antwort(a)}</p></details>' for q, a in liste)
+        teile.append(f'<section class="faq-gruppe split reveal" aria-labelledby="faq-{i}"><h2 id="faq-{i}">{thema}</h2><div class="faq">{d}</div></section>')
+    return "".join(teile)
+
+
 def block_faq():
     d = "".join(f'<details><summary>{q}{ico("plus")}</summary><p>{a}</p></details>' for q, a in FAQ)
     return f'<div class="faq">{d}</div>'
@@ -301,7 +341,7 @@ def ersetzen(text, R, home):
     text = text.replace("{{fokus}}", block_fokus(R)).replace("{{projekte}}", block_projekte(R))
     text = text.replace("{{projektliste}}", block_projektliste(R))
     text = text.replace("{{ablauf}}", block_ablauf(ABLAUF)).replace("{{ablauf3}}", block_ablauf(ABLAUF3, " steps--3"))
-    text = text.replace("{{kacheln}}", block_kacheln(R)).replace("{{faq}}", block_faq())
+    text = text.replace("{{kacheln}}", block_kacheln(R)).replace("{{faq}}", block_faq()).replace("{{faqseite}}", block_faq_seite())
     text = re.sub(r"\{\{ico:([a-z]+)\}\}", lambda m: ico(m.group(1)), text)
 
     def bild(m):
@@ -347,8 +387,9 @@ def schema(seite):
                       "provider": {"@id": f"{DOMAIN}/#firma"},
                       "areaServed": FIRMA["areaServed"], "serviceType": l["name"]})
     if seite.get("faq"):
+        fragen = [qa for _, liste in FAQ_GRUPPEN for qa in liste if "PLATZHALTER" not in qa[1]]
         graph.append({"@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]})
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in fragen]})
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
 
 
@@ -429,7 +470,7 @@ def footer(R, home):
     </div>
     <div class="footer-grid">
       <div class="footer-brand"><img src="{R}assets/logo/logo-weiss-114.webp" alt="" width="57" height="40" loading="lazy" decoding="async"><p>Webseiten, Shopify Shops und Automatisierungen aus Kürten, für Unternehmen, die digital überzeugen wollen.</p></div>
-      <div><h2>Navigation</h2><ul><li><a href="{home}">Start</a></li><li><a href="{R}leistungen">Leistungen</a></li><li><a href="{R}referenzen">Projekte</a></li><li><a href="{R}ueber-uns">Über mich</a></li><li><a href="{R}kontakt">Kontakt</a></li></ul></div>
+      <div><h2>Navigation</h2><ul><li><a href="{home}">Start</a></li><li><a href="{R}leistungen">Leistungen</a></li><li><a href="{R}referenzen">Projekte</a></li><li><a href="{R}faq">FAQ</a></li><li><a href="{R}ueber-uns">Über mich</a></li><li><a href="{R}kontakt">Kontakt</a></li></ul></div>
       <div><h2>Leistungen</h2><ul>{leist}</ul></div>
       <div><h2>Kontakt</h2><address>JG Solutions<br>Juan Goerth<br>Winterberg 33a<br>51515 Kürten</address><ul><li><a href="{TEL_LINK}">{TEL}</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li></ul></div>
     </div>
@@ -538,7 +579,7 @@ SEITEN_LISTE = [
     {"datei": "leistungen.html", "pfad": "leistungen", "quelle": "leistungen.html", "nav": "leistungen",
      "title": "Leistungen: Webseiten, Shops & KI | JG Solutions",
      "desc": "Webseiten, Shopify Shops, Automatisierungen, SEO, Branding und KI-Chatbots aus einer Hand. Persönlich betreut aus Kürten. Alle Leistungen im Überblick.",
-     "krumen": [("Leistungen", "leistungen")], "faq": True},
+     "krumen": [("Leistungen", "leistungen")]},
     {"datei": "referenzen.html", "pfad": "referenzen", "quelle": "referenzen.html", "nav": "referenzen",
      "title": "Projekte & Referenzen | JG Solutions Kürten",
      "desc": "Ausgewählte Projekte von JG Solutions: Webseiten und Shopify Shops für Unternehmen aus dem Bergischen Land und darüber hinaus. Sieh dir die Arbeiten an.",
@@ -551,6 +592,10 @@ SEITEN_LISTE = [
      "title": "Kontakt & Termin | JG Solutions Kürten",
      "desc": "Schreib mir, ruf an oder buch dir direkt ein kostenloses Erstgespräch. Ich melde mich innerhalb von 24 Stunden mit einer ersten Einschätzung.",
      "krumen": [("Kontakt", "kontakt")]},
+    {"datei": "faq.html", "pfad": "faq", "quelle": "faq.html", "nav": "faq", "faq": True,
+     "title": "FAQ: Häufige Fragen zu Webseiten | JG Solutions",
+     "desc": "Antworten zu Kosten, Ablauf, Dauer, Hosting, Pflege und Datenschutz deiner Website oder deines Shops. Deine Frage fehlt? Schreib mir einfach direkt.",
+     "krumen": [("FAQ", "faq")]},
     {"datei": "impressum.html", "pfad": "impressum", "quelle": "impressum.html", "noindex": True,
      "title": "Impressum | JG Solutions",
      "desc": "Impressum und Anbieterkennzeichnung von JG Solutions, Inhaber Juan Goerth, Winterberg 33a, 51515 Kürten. Kontakt per E-Mail und Telefon.",

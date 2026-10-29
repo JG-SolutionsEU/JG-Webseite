@@ -368,6 +368,9 @@ main { padding-top: var(--header-h); }
 .faq summary svg { width: 20px; height: 20px; flex: none; transition: transform .25s var(--ease); }
 .faq details[open] summary svg { transform: rotate(45deg); }
 .faq details p { padding-bottom: 24px; margin: 0; max-width: 60ch; color: var(--c-muted); }
+/* FAQ-Seite: ein Themenblock pro Zeile, Überschrift links, Fragen rechts */
+.faq-seite { display: grid; gap: clamp(56px, 7vw, 112px); }
+.faq-gruppe h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); }
 
 /* ---------- Über mich ---------- */
 .profile { display: grid; gap: var(--gap); align-items: start; }
