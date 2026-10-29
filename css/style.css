@@ -317,13 +317,36 @@ main { padding-top: var(--header-h); }
 /* ---------- Projekte-Seite: Liste, Desktop abwechselnd Bild links/rechts ---------- */
 .proj-list { list-style: none; display: grid; gap: clamp(64px, 8vw, 128px); }
 .proj { display: grid; gap: 24px; align-items: center; }
-.proj-media { display: block; overflow: hidden; background: var(--c-soft); }
-.proj-media img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; transition: transform .6s var(--ease-word); }
-.proj-media:hover img { transform: scale(1.03); }
+/* Bildfläche mit zwei übereinanderliegenden Ansichten: Desktop-Screenshot und Handy im Rahmen */
+.proj-media { display: grid; aspect-ratio: 16 / 10; overflow: hidden; background: var(--c-soft); }
+.proj-view { grid-area: 1 / 1; display: block; min-height: 0; transition: opacity .3s var(--ease-std); }
+.proj-view--desktop img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s var(--ease-word); }
+.proj-media:hover .proj-view--desktop img { transform: scale(1.03); }
+.proj-view--handy { display: grid; place-items: center; padding: 5% 0; }
+.phone {
+  height: 100%; aspect-ratio: 390 / 844; overflow: hidden; background: #111;
+  border: clamp(6px, .7vw, 10px) solid #111; border-radius: clamp(22px, 2.6vw, 38px);
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, .5);
+  transform: translateY(16px); transition: transform .45s var(--ease-word);
+}
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: clamp(14px, 1.9vw, 28px); }
+.proj[data-ansicht="desktop"] .proj-view--handy, .proj[data-ansicht="handy"] .proj-view--desktop { opacity: 0; pointer-events: none; }
+.proj[data-ansicht="handy"] .phone { transform: none; }
+@media (max-width: 599px) { .proj[data-ansicht="handy"] .proj-media { aspect-ratio: 4 / 5; } }
+
+/* Umschalter Desktop | Handy (erscheint nur mit JavaScript) */
+.ansicht-schalter { display: none; margin: 4px 0 20px; padding: 3px; border: 1px solid var(--c-ink); border-radius: 999px; }
+.js .ansicht-schalter { display: flex; width: fit-content; }
+.ansicht-schalter button {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 18px;
+  border: 0; border-radius: 999px; background: none; cursor: pointer; font-size: .9375rem; font-weight: 500;
+  transition: background-color .3s var(--ease-std), color .3s var(--ease-std);
+}
+.ansicht-schalter button svg { width: 18px; height: 18px; }
+.ansicht-schalter button[aria-pressed="true"] { background: var(--c-ink); color: #fff; }
 .proj-text h2 { margin: 4px 0 12px; }
 .proj-text p { color: var(--c-muted); max-width: 40ch; }
 .proj-text .slide-num { margin-top: 0; }
-@media (max-width: 599px) { .proj-media img { aspect-ratio: 4 / 5; } }
 @media (min-width: 900px) {
   .proj { grid-template-columns: 7fr 5fr; column-gap: clamp(40px, 5vw, 96px); }
   .proj:nth-child(even) .proj-media { order: 2; }
@@ -339,6 +362,31 @@ main { padding-top: var(--header-h); }
 .section--dark .step p { color: #b5b5b5; }
 @media (min-width: 600px) { .steps { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
 @media (min-width: 1200px) { .steps { grid-template-columns: repeat(4, 1fr); } .steps--3 { grid-template-columns: repeat(3, 1fr); } }
+
+/* Ablauf: Beim Scrollen durch die Schritt-Liste füllt sich die Linie über jedem Schritt
+   nacheinander von links, die Nummer wird kräftiger. Fortschritt = Scroll-Position der Liste
+   (scroll-driven animation); Browser ohne Unterstützung zeigen die Linie wie bisher. */
+@keyframes linie-fuellen { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes nummer-an { from { opacity: .3; } to { opacity: 1; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .steps { view-timeline: --ablauf block; }
+    .step { position: relative; border-top-color: var(--c-line); }
+    .section--dark .step, .section--accent .step { border-top-color: rgba(255, 255, 255, .2); }
+    .step::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+      background: var(--c-ink); transform-origin: left; transform: scaleX(0);
+      animation: linie-fuellen linear both; animation-timeline: --ablauf;
+    }
+    .section--dark .step::before, .section--accent .step::before { background: #fff; }
+    .step .step-num { animation: nummer-an linear both; animation-timeline: --ablauf; }
+    /* Reihenfolge: jeder Schritt bekommt seinen Abschnitt des Scrollwegs */
+    .step:nth-child(1)::before, .step:nth-child(1) .step-num { animation-range: entry 40% cover 35%; }
+    .step:nth-child(2)::before, .step:nth-child(2) .step-num { animation-range: cover 35% cover 45%; }
+    .step:nth-child(3)::before, .step:nth-child(3) .step-num { animation-range: cover 45% cover 55%; }
+    .step:nth-child(4)::before, .step:nth-child(4) .step-num { animation-range: cover 55% cover 65%; }
+  }
+}
 
 /* ---------- Punkte-Liste (Warum JG) ---------- */
 .points { list-style: none; display: grid; }

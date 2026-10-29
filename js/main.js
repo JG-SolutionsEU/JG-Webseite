@@ -145,6 +145,18 @@
     zaehler.forEach(function (el) { zio.observe(el); });
   }
 
+  /* Projekte-Seite: Umschalter Desktop/Handy. Auf dem Handy startet jedes Projekt in der Handy-Ansicht. */
+  var handyStart = window.matchMedia("(max-width: 599px)").matches;
+  document.querySelectorAll(".proj[data-ansicht]").forEach(function (proj) {
+    var knoepfe = proj.querySelectorAll("[data-zeige]");
+    var zeige = function (ansicht) {
+      proj.setAttribute("data-ansicht", ansicht);
+      knoepfe.forEach(function (k) { k.setAttribute("aria-pressed", String(k.getAttribute("data-zeige") === ansicht)); });
+    };
+    knoepfe.forEach(function (k) { k.addEventListener("click", function () { zeige(k.getAttribute("data-zeige")); }); });
+    if (handyStart) zeige("handy");
+  });
+
   /* Projekt-Slider: Pfeile + Zähler "01 / 03", Wischen über natives Scrollen */
   document.querySelectorAll("[data-slider]").forEach(function (root) {
     var track = root.querySelector(".slider-track");

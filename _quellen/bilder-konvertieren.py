@@ -57,6 +57,16 @@ for name in ("lennerts", "monsieur", "pb-malwerk"):
             im.resize((w, h), Image.LANCZOS).save(ziel, "WEBP", quality=78, method=6)
             masse[f"ref-{name}-mob"][w] = [w, h]
             print(f"{ziel.name:50} {w}x{h}  {ziel.stat().st_size // 1024} KB")
+    # Ganzer Handy-Bildschirm (780 x 1688) für den Handy-Rahmen im Desktop/Handy-Umschalter
+    with Image.open(QUELLE_REF / f"{name}-mob.png") as im:
+        im = im.convert("RGB")
+        masse[f"ref-{name}-phone"] = {}
+        for w in (390, 780):
+            h = round(im.height * w / im.width)
+            ziel = REF / f"ref-{name}-phone-{w}.webp"
+            im.resize((w, h), Image.LANCZOS).save(ziel, "WEBP", quality=78, method=6)
+            masse[f"ref-{name}-phone"][w] = [w, h]
+            print(f"{ziel.name:50} {w}x{h}  {ziel.stat().st_size // 1024} KB")
 
 # Logo einfarbig: Alphakanal behalten, Farbe ersetzen
 LOGO = ROOT / "assets" / "logo"

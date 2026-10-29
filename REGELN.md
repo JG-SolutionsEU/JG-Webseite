@@ -18,6 +18,7 @@ Ergänzt das globale Regelwerk (Skill `webseiten-regeln`). Bei Widerspruch gilt 
 - **Akzentfläche Dunkelblau #0E2D69** (seit 2026-10-29, vorher Demodern-Neongelb #EEFF00) für genau einen Abschnitt pro Seite (Leistungs-Block) und als kleiner Akzent. Text darauf weiß. Kein Glow, kein Verlauf.
 - **js/quiz.js (≈ 35 KB)** über dem JS-Budget: wird erst beim ersten Klick auf „Kostenlose Analyse“ nachgeladen, auf der Kontaktseite direkt (Kalender).
 - Web3Forms (Quiz) und Cal.com (nach Klick) sind die einzigen Drittanbieter.
+- **Animationen länger als 400 ms:** Headline Wort für Wort und Einblenden beim Scrollen 600 ms (Werte von demodern.de), Kennzahlen zählen 1,4 s hoch. Die Ablauf-Linien sind an die Scroll-Position gekoppelt (`animation-timeline`), also ohne feste Dauer. Alles nur mit `transform`/`opacity`, bei „Bewegung reduzieren“ aus.
 
 ## Design-Tokens (gemessen auf demodern.de, 2026-10-28)
 
