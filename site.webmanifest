@@ -1,11 +1,10 @@
 {
   "name": "JG Solutions",
   "short_name": "JG Solutions",
-  "lang": "de",
-  "start_url": "./",
+  "start_url": "/",
   "display": "browser",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#FBFBF8",
+  "theme_color": "#FBFBF8",
   "icons": [
     { "src": "assets/logo/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "assets/logo/icon-512.png", "sizes": "512x512", "type": "image/png" }

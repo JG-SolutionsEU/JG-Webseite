@@ -5,5 +5,6 @@ zz-*.html
 Thumbs.db
 desktop.ini
 .DS_Store
+.vscode/
 .claude-flow/
 __pycache__/

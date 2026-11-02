@@ -9,7 +9,7 @@
  * Für einen neuen Kunden nur den Block EINSTELLUNGEN anpassen:
  *   1. EMPFAENGER / ABSENDER / ABSENDER_NAME / BETREFF
  *   2. $FELDER = die name-Attribute der Felder im HTML-Formular
- *   3. $TEXTE = Anrede (du/Sie) und Telefonnummer für den Notfall-Hinweis
+ *   3. $TEXTE = Anrede (hier: Sie) und Telefonnummer für den Notfall-Hinweis
  *   4. DANKE_SEITE / KONTAKT_SEITE (mit .html, wenn die Seite keine sauberen URLs hat)
  *
  * Sicherheit:
@@ -43,18 +43,18 @@ $FELDER = [
     'email'   => ['label' => 'E-Mail',    'typ' => 'email',      'pflicht' => true,  'max' => 150],
     'phone'   => ['label' => 'Telefon',   'typ' => 'tel',        'pflicht' => false, 'max' => 40],
     'topic'   => ['label' => 'Thema',     'typ' => 'auswahl',    'pflicht' => false, 'max' => 60,
-                  'erlaubt' => ['Webseite', 'Shopify Shop', 'Automatisierung', 'Visitenkarten',
-                                'SEO & Sichtbarkeit', 'Branding & Print', 'KI & Chatbot', 'Sonstiges']],
+                  'erlaubt' => ['Webseiten & SEO', 'Shopify Shops', 'Automatisierung & KI',
+                                'Branding & Print', 'Wartung & Support', 'Sonstiges']],
     'message' => ['label' => 'Nachricht', 'typ' => 'mehrzeilig', 'pflicht' => true,  'max' => 5000, 'min' => 10],
 ];
 
 $TEXTE = [
-    'ok'           => 'Danke! Deine Anfrage ist angekommen.',
-    'pflicht'      => 'Bitte fülle das Feld „%s“ aus.',
-    'ungueltig'    => 'Bitte prüfe das Feld „%s“.',
-    'einwilligung' => 'Bitte stimme der Verarbeitung deiner Angaben zu.',
-    'zu_schnell'   => 'Das ging sehr schnell. Bitte prüfe deine Angaben und sende noch einmal.',
-    'fehler'       => 'Die Anfrage konnte gerade nicht gesendet werden. Bitte schreib direkt an info@jg-solutions.eu oder ruf an: +49 176 24004201.',
+    'ok'           => 'Vielen Dank! Ihre Anfrage ist angekommen.',
+    'pflicht'      => 'Bitte füllen Sie das Feld „%s“ aus.',
+    'ungueltig'    => 'Bitte prüfen Sie das Feld „%s“.',
+    'einwilligung' => 'Bitte stimmen Sie der Verarbeitung Ihrer Angaben zu.',
+    'zu_schnell'   => 'Das ging sehr schnell. Bitte prüfen Sie Ihre Angaben und senden Sie erneut.',
+    'fehler'       => 'Die Anfrage konnte gerade nicht gesendet werden. Bitte schreiben Sie direkt an info@jg-solutions.eu oder rufen Sie an: +49 176 24004201.',
     'methode'      => 'Ungültige Anfrage.',
     'seite_titel'  => 'Anfrage nicht gesendet | JG Solutions',
     'zurueck'      => 'Zurück zum Formular',

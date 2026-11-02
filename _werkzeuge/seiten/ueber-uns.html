@@ -1,0 +1,60 @@
+<!--{
+  "out": "ueber-uns.html",
+  "nav": "ueber",
+  "title": "Über mich: Juan Goerth, Webdesign Kürten | JG Solutions",
+  "description": "Juan Goerth, Gründer von JG Solutions aus Kürten: Webseiten, Shops und Automatisierung mit festem Ansprechpartner, ohne Fachchinesisch.",
+  "breadcrumbs": [["Über mich", "/ueber-uns"]]
+}-->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-grid">
+      <div>
+        <!--crumbs-->
+        <h1>Die Person hinter JG Solutions.</h1>
+        <p class="lead">Kein anonymes Team, kein Callcenter: Bei mir arbeiten Sie direkt mit der Person zusammen, die Ihr Projekt plant und umsetzt.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="{{root}}kontakt" data-quiz-open>Kostenlose Analyse {{icon:arrow}}</a>
+          <a class="btn btn-secondary" href="{{root}}referenzen">Referenzen ansehen {{icon:arrow}}</a>
+        </div>
+      </div>
+      <img class="about-photo" src="{{root}}assets/juan-600.webp" srcset="{{root}}assets/juan-600.webp 600w, {{root}}assets/juan.webp 900w" sizes="(min-width: 900px) 420px, 92vw" alt="Juan Goerth, Gründer von JG Solutions in Kürten" width="600" height="800" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="story-title">
+  <div class="container prose-split">
+    <h2 id="story-title" class="h2">Digitale Lösungen mit Handschlag-Qualität.</h2>
+    <div class="prose reveal">
+      <p>Ich bin <strong>Juan Goerth</strong>, Gründer von JG Solutions aus Kürten im Rheinisch-Bergischen Kreis. Ich helfe Selbstständigen und Unternehmen dabei, online sichtbar zu werden: mit Webseiten, Shops und Automatisierungen, die nicht nur gut aussehen, sondern etwas bringen.</p>
+      <p>Mir ist wichtig, dass Sie verstehen, was passiert. Deshalb erkläre ich alles verständlich, ohne unnötiges Fachchinesisch und ohne endlose Warteschleifen. Sie bekommen klare Absprachen, ehrliche Beratung und ein Ergebnis, hinter dem ich stehe.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" aria-labelledby="werte-title">
+  <div class="container values">
+    <div class="values-head">
+      <h2 id="werte-title" class="h2">Worauf Sie sich verlassen können.</h2>
+      <p class="lead">Vier Grundsätze, die für jedes Projekt gelten.</p>
+    </div>
+    <ul class="value-list">
+      <li class="value reveal"><span class="value-ico">{{icon:palette}}</span><h3>Individuell</h3><p>Kein Baukasten von der Stange. Jede Lösung wird für Ihr Unternehmen und Ihre Kunden gebaut.</p></li>
+      <li class="value reveal"><span class="value-ico">{{icon:shield}}</span><h3>Verlässlich</h3><p>Absprachen und Termine gelten. Sie wissen jederzeit, woran wir gerade arbeiten und was als Nächstes kommt.</p></li>
+      <li class="value reveal"><span class="value-ico">{{icon:chat}}</span><h3>Direkter Draht</h3><p>Fragen beantworte ich selbst und schnell. Kurze Wege statt langer Agentur-Kette.</p></li>
+      <li class="value reveal"><span class="value-ico">{{icon:eye}}</span><h3>Ehrlich</h3><p>Faire Festpreise und eine Beratung, die auch sagt, was Sie nicht brauchen.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="ablauf-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="ablauf-title" class="h2">So arbeite ich.</h2>
+      <p class="lead">Ein klarer Ablauf, damit Sie vorher wissen, was Sie bekommen.</p>
+    </div>
+    {{steps}}
+  </div>
+</section>
+
+{{analyse-cta}}

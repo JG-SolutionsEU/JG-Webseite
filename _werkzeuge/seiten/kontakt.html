@@ -1,0 +1,41 @@
+<!--{
+  "out": "kontakt.html",
+  "nav": "kontakt",
+  "title": "Kontakt & Termin buchen | JG Solutions Kürten",
+  "description": "Kontakt zu JG Solutions in Kürten: Anfrage per Formular, Telefon oder E-Mail oder direkt einen Termin buchen. Antwort innerhalb von 24 Stunden.",
+  "breadcrumbs": [["Kontakt", "/kontakt"]]
+}-->
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <!--crumbs-->
+      <h1>Kontakt</h1>
+      <p class="lead">Erzählen Sie mir von Ihrem Vorhaben. Ich melde mich innerhalb von 24 Stunden mit einer ersten Einschätzung und einem klaren nächsten Schritt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="anfrage-title">
+  <div class="container contact-page">
+    <div class="form-card">
+      <h2 id="anfrage-title" class="sr-only">Anfrage senden</h2>
+      {{contact-form:k}}
+    </div>
+    <div class="contact-aside">
+      <a class="contact-item" href="tel:{{tel}}"><span class="ico-box">{{icon:phone}}</span><span><b>{{phone}}</b><span>Direkt mit mir sprechen</span></span></a>
+      <a class="contact-item" href="mailto:{{email}}"><span class="ico-box">{{icon:mail}}</span><span><b>{{email}}</b><span>Antwort innerhalb von 24 Stunden</span></span></a>
+      <div class="contact-item"><span class="ico-box">{{icon:pin}}</span><span><b>Winterberg 33a, 51515 Kürten</b><span>Termine vor Ort nach Absprache</span></span></div>
+      <a class="contact-item" href="{{root}}kontakt" data-quiz-open><span class="ico-box">{{icon:target}}</span><span><b>Kostenlose Analyse</b><span>Sechs kurze Fragen, etwa zwei Minuten</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-line" id="termin" aria-labelledby="termin-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="termin-title" class="h2">Lieber direkt einen Termin?</h2>
+      <p class="lead">Wählen Sie einen freien Termin für Ihr kostenloses und unverbindliches Erstgespräch. Die Bestätigung kommt per E-Mail.</p>
+    </div>
+    <div class="cal-box" data-cal></div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<!--{
+  "out": "leistungen/wartung.html",
+  "nav": "leistungen",
+  "title": "Website-Wartung & Support · Kürten | JG Solutions",
+  "description": "Website-Wartung aus Kürten: Updates, Sicherheits-Checks, Backups und kleine Änderungen mit festem Ansprechpartner. Planbar als Monatspaket. Jetzt anfragen.",
+  "breadcrumbs": [["Leistungen", "/leistungen"], ["Wartung & Support", "/leistungen/wartung"]],
+  "service": "Website-Wartung und Support",
+  "faq": [
+    ["Warum braucht eine Webseite Wartung?", "Browser, Server und Sicherheitsanforderungen ändern sich laufend. Ohne regelmäßige Pflege werden Seiten langsamer, Formulare funktionieren nicht mehr oder es entstehen Sicherheitslücken. Wartung sorgt dafür, dass Ihre Seite zuverlässig läuft."],
+    ["Betreuen Sie auch Seiten, die Sie nicht selbst gebaut haben?", "Ja, nach einer kurzen Prüfung. Ich schaue mir Technik und Zustand an und sage Ihnen ehrlich, ob eine Betreuung sinnvoll ist oder ob eine Überarbeitung günstiger wäre."],
+    ["Wie schnell reagieren Sie bei Problemen?", "Anfragen beantworte ich innerhalb von 24 Stunden. Fällt die Seite aus oder ist ein Formular defekt, hat das Vorrang vor allem anderen."],
+    ["Wie wird abgerechnet?", "Wahlweise als planbares Monatspaket mit festem Umfang oder nach Aufwand für einzelne Aufgaben. Was für Sie besser passt, klären wir in der kostenlosen Analyse."]
+  ]
+}-->
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <!--crumbs-->
+      <h1>Wartung &amp; Support</h1>
+      <p class="lead">Ihre Seite bleibt schnell, sicher und aktuell. Mit festem Ansprechpartner, der Ihre Technik kennt und kurzfristig reagiert.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{{root}}kontakt" data-quiz-open="wartung">Projekt besprechen {{icon:arrow}}</a>
+        <a class="btn btn-secondary" href="{{root}}leistungen">{{icon:back}}Alle Leistungen</a>
+      </div>
+    </div>
+    {{illu:wrench,shield,refresh,gauge}}
+  </div>
+</section>
+
+<section class="section section-dark" aria-labelledby="liefern-title">
+  <div class="container deliver">
+    <div>
+      <h2 id="liefern-title" class="h2">Was ich liefere.</h2>
+      <p class="lead">Nach dem Launch ist vor dem Launch. Ich halte Ihre Seite einsatzbereit, damit Sie sich um Ihr Geschäft kümmern können.</p>
+    </div>
+    <ul class="deliver-list">
+      <li class="reveal">{{icon:check}}Regelmäßige Updates und Sicherheits-Checks</li>
+      <li class="reveal">{{icon:check}}Backups, damit nichts verloren geht</li>
+      <li class="reveal">{{icon:check}}Kleine Änderungen und Textpflege</li>
+      <li class="reveal">{{icon:check}}Prüfung von Formularen und Ladezeit</li>
+      <li class="reveal">{{icon:check}}Ein fester Ansprechpartner: ich</li>
+      <li class="reveal">{{icon:check}}Optional als planbares Monatspaket</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="ablauf-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="ablauf-title" class="h2">So läuft es ab.</h2>
+      <p class="lead">Vier klare Schritte, ein Ansprechpartner.</p>
+    </div>
+    {{steps}}
+  </div>
+</section>
+
+<section class="section section-line" aria-labelledby="faq-title">
+  <div class="container faq-wrap">
+    <div>
+      <h2 id="faq-title" class="h2">Häufige Fragen.</h2>
+      <p class="lead">Kurze Antworten zu Wartung und Support. Ihre Frage fehlt? <a href="{{root}}kontakt">Schreiben Sie mir.</a></p>
+    </div>
+    <!--faq-->
+  </div>
+</section>
+
+{{analyse-cta:wartung}}
+{{more-services:wartung}}

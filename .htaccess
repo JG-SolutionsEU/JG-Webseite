@@ -1,5 +1,5 @@
 # ==========================================================================
-# JG Solutions – Apache-Konfiguration (IONOS Webhosting), Website im Demodern-Stil
+# JG Solutions – Apache-Konfiguration (IONOS Webhosting)
 # Saubere URLs (/kontakt statt /kontakt.html), HTTPS, eine Domain-Variante
 # (ohne www, wie Canonical und Sitemap), Kompression, Caching, Sicherheits-Header.
 # ==========================================================================
@@ -14,45 +14,47 @@ AddType image/webp .webp
 AddType image/svg+xml .svg
 AddType application/manifest+json .webmanifest
 
-# Es gibt sowohl die Datei leistungen.html als auch den Ordner /leistungen/.
-# Ohne diese Zeile leitet Apache /leistungen automatisch auf /leistungen/ um.
+# Es gibt die Datei leistungen.html und den Ordner /leistungen/. Ohne diese Zeile
+# leitet Apache /leistungen auf /leistungen/ um und die Seite wäre nicht erreichbar.
 DirectorySlash Off
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 
-# Interne Arbeitsordner sperren (am besten gar nicht erst hochladen)
-RewriteRule ^(_[^/]*|docs|original|node_modules|\.git|\.claude[^/]*)(/|$) - [F,L]
+# Arbeitsordner sperren (am besten gar nicht erst hochladen)
+RewriteRule ^(_[^/]*|docs|node_modules|\.git|\.claude[^/]*)(/|$) - [F,L]
 
 # HTTPS + ohne www in einem Schritt (eine einzige 301-Weiterleitung)
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^ https://jg-solutions.eu%{REQUEST_URI} [L,R=301,NE]
 
-# Alte URL der Briefing-Seite gibt es in dieser Version nicht mehr
-RewriteRule ^pb-malwerk-fragebogen(\.html)?$ /kontakt [R=301,L]
+# Alte Leistungsseiten (bis Oktober 2026) -> gebündelte neue Seiten
+RewriteRule ^leistungen/seo(\.html)?/?$ /leistungen/webseiten [R=301,L]
+RewriteRule ^leistungen/(automatisierungen|ki)(\.html)?/?$ /leistungen/automatisierung-ki [R=301,L]
+RewriteRule ^leistungen/(branding|visitenkarten)(\.html)?/?$ /leistungen/branding-print [R=301,L]
 
-# 1) /index und /index.html (auch in Unterordnern) -> Ordner-URL
+# /index und /index.html (auch in Unterordnern) -> Ordner-URL
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.*/)?index(\.html)?[\s?]
 RewriteRule ^ /%1 [R=301,L]
 
-# 2) /seite.html -> /seite  (nur wenn die .html-URL direkt aufgerufen wurde)
+# /seite.html -> /seite (nur bei direktem Aufruf, THE_REQUEST verhindert Schleifen)
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/(.+)\.html[\s?]
 RewriteRule ^ /%1 [R=301,L]
 
-# 3) /leistungen/ -> /leistungen  (wenn es dazu eine leistungen.html gibt)
+# /leistungen/ -> /leistungen (wenn es dazu eine .html-Datei gibt)
 RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-# 4) /seite -> seite.html intern ausliefern
+# /seite -> seite.html intern ausliefern
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
 
 # ---------- Interne Dateien sperren ----------
 <IfModule mod_authz_core.c>
-<FilesMatch "(^\.|\.(zip|rar|7z|md|py|bak|old|orig|tmp|swp|sql|log|ini|ps1|sh|json|psd|ai|fig|sketch)$)">
+<FilesMatch "(^\.|\.(zip|rar|7z|md|py|mjs|bak|old|orig|tmp|swp|sql|log|ini|ps1|sh|json|geojson|psd|ai|fig|sketch)$)">
   Require all denied
 </FilesMatch>
 </IfModule>
@@ -64,15 +66,14 @@ RewriteRule ^(.+)$ $1.html [L]
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 
-  # Content-Security-Policy: kein Inline-JavaScript, alles liegt in /js/ (JSON-LD wird nicht
-  # ausgeführt). Fremde Quellen nur für Cal.com (lädt erst nach Klick) und Web3Forms (Quiz).
+  # Kein Inline-JavaScript, alles liegt in /js/. Fremde Quellen nur für Cal.com,
+  # das erst nach Klick auf „Kalender laden“ nachgeladen wird.
   # 'unsafe-inline' bei style-src braucht Cal.com für seine Inline-Styles.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo=' https://app.cal.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.cal.com; font-src 'self'; connect-src 'self' https://api.web3forms.com https://app.cal.com https://api.cal.com; frame-src https://app.cal.com https://cal.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://app.cal.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.cal.com; font-src 'self'; connect-src 'self' https://app.cal.com https://api.cal.com; frame-src https://app.cal.com https://cal.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
 
   # HSTS erst aktivieren, wenn HTTPS sicher läuft (Zertifikat bei IONOS aktiv):
   # Header always set Strict-Transport-Security "max-age=31536000"
 
-  # HTML nicht lange cachen, damit Änderungen sofort sichtbar sind
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
@@ -83,7 +84,7 @@ RewriteRule ^(.+)$ $1.html [L]
   ExpiresActive On
   ExpiresDefault "access plus 1 week"
   ExpiresByType text/html "access plus 0 seconds"
-  # CSS/JS: 1 Woche. Bei Änderungen die Versionsnummer (?v=1) in den Links erhöhen.
+  # CSS/JS: 1 Woche. Bei Änderungen VERSION in _werkzeuge/seiten-bauen.mjs erhöhen und neu bauen.
   ExpiresByType text/css "access plus 1 week"
   ExpiresByType application/javascript "access plus 1 week"
   ExpiresByType text/javascript "access plus 1 week"

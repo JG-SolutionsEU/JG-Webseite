@@ -1,0 +1,43 @@
+<!--{
+  "out": "leistungen.html",
+  "nav": "leistungen",
+  "title": "Leistungen: Webseiten, Shops & Branding | JG Solutions",
+  "description": "Webseiten & SEO, Shopify Shops, Automatisierung & KI, Branding & Print und Wartung: alle Leistungen von JG Solutions aus Kürten im Überblick.",
+  "breadcrumbs": [["Leistungen", "/leistungen"]]
+}-->
+<section class="page-hero">
+  <div class="container page-hero-grid">
+    <div>
+      <!--crumbs-->
+      <h1>Leistungen</h1>
+      <p class="lead">Fünf Leistungen, ein Ansprechpartner. Von der ersten Webseite über den Online-Shop bis zur Automatisierung, die Ihr Team entlastet.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{{root}}kontakt" data-quiz-open>Kostenlose Analyse {{icon:arrow}}</a>
+        <a class="btn btn-secondary" href="{{root}}referenzen">Referenzen ansehen {{icon:arrow}}</a>
+      </div>
+    </div>
+    {{illu:layers,globe,bag,bolt}}
+  </div>
+</section>
+
+<section class="section section-white" aria-labelledby="alle-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="alle-title" class="h2">Direkt zum passenden Bereich.</h2>
+      <p class="lead">Nicht sicher, was Sie brauchen? Die kostenlose Analyse sortiert das in zwei Minuten.</p>
+    </div>
+    <div class="reveal">{{service-cards}}</div>
+  </div>
+</section>
+
+<section class="section section-line" aria-labelledby="ablauf-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="ablauf-title" class="h2">So läuft jedes Projekt ab.</h2>
+      <p class="lead">Egal ob Webseite, Shop oder Logo: Sie kennen Umfang und Festpreis, bevor es losgeht.</p>
+    </div>
+    {{steps}}
+  </div>
+</section>
+
+{{analyse-cta}}

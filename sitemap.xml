@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jg-solutions.eu/</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen</loc></url>
-  <url><loc>https://jg-solutions.eu/referenzen</loc></url>
-  <url><loc>https://jg-solutions.eu/ueber-uns</loc></url>
-  <url><loc>https://jg-solutions.eu/kontakt</loc></url>
-  <url><loc>https://jg-solutions.eu/faq</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/webseiten</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/shopify</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/automatisierungen</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/visitenkarten</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/seo</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/wartung</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/branding</loc></url>
-  <url><loc>https://jg-solutions.eu/leistungen/ki</loc></url>
+  <url><loc>https://jg-solutions.eu/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen/webseiten</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen/shopify</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen/automatisierung-ki</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen/branding-print</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/leistungen/wartung</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/referenzen</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/ueber-uns</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://jg-solutions.eu/kontakt</loc><lastmod>2026-10-30</lastmod></url>
 </urlset>

@@ -1,5 +1,5 @@
 # Veröffentlicht die Website bei jedem Push auf main über GitHub Pages.
-# Es werden nur die öffentlichen Dateien hochgeladen; _quellen/, REGELN.md, README.md,
+# Es werden nur die öffentlichen Dateien hochgeladen; _werkzeuge/, docs/, README.md,
 # kontakt-senden.php und .htaccess bleiben im Repo, landen aber nicht auf der Seite.
 name: Website veröffentlichen
 
@@ -28,7 +28,7 @@ jobs:
       - name: Öffentliche Dateien zusammenstellen
         run: |
           mkdir _site
-          cp -r *.html css js assets leistungen favicon.svg apple-touch-icon.png site.webmanifest robots.txt sitemap.xml _site/
+          cp -r *.html css js assets leistungen apple-touch-icon.png site.webmanifest robots.txt sitemap.xml _site/
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
