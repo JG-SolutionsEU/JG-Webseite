@@ -181,7 +181,7 @@
   /* Alles, was sich nach dem Anflug nicht mehr bewegt */
   function background() {
     var detail = clamp((zoom - 2) / 2.5);            // Übergang grobe Kugel → feines Raster
-    ctx.fillStyle = "#3F3F46";
+    ctx.fillStyle = "#57677E";
     if (detail < 1) {
       dots(sea, 0.8, 0.07 * (1 - detail));
       dots(land, 1.3, 0.85 * (1 - detail));
@@ -189,7 +189,7 @@
     if (detail > 0) {
       var r = Math.min(1.8 * DPR, Math.max(0.6 * DPR, 0.24 * DE.dlat * RAD * RZ));
       for (var b = 0; b < neighbours.length; b++) fine(neighbours[b], r, VIGNETTE[b][1] * detail);
-      ctx.fillStyle = "#09090B";
+      ctx.fillStyle = "#2E90FF";
       fine(germany, r, 0.88 * detail);
       /* Weicher Rand: zum Rand des sichtbaren Ausschnitts hin ausblenden statt hart abschneiden */
       ctx.save();
@@ -219,7 +219,7 @@
     ctx.textAlign = side > 0 ? "left" : "right";
     ctx.lineWidth = 4 * DPR;
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "#FBFBF8";
+    ctx.strokeStyle = "#F4F8FD";
     ctx.fillStyle = color;
     ctx.strokeText(text, x + side * 10 * DPR, y);
     ctx.fillText(text, x + side * 10 * DPR, y);
@@ -237,7 +237,7 @@
       var t = (now % 2400) / 2400;
       ctx.beginPath();
       ctx.arc(x, y, (5 + 18 * t) * DPR, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(9, 9, 11, " + (0.45 * (1 - t) * fade) + ")";
+      ctx.strokeStyle = "rgba(46, 144, 255, " + (0.6 * (1 - t) * fade) + ")";
       ctx.lineWidth = 1.5 * DPR;
       ctx.stroke();
     }
@@ -247,10 +247,10 @@
     ctx.fill();
     ctx.beginPath();
     ctx.arc(x, y, 4 * DPR, 0, 2 * Math.PI);
-    ctx.fillStyle = "#09090B";
+    ctx.fillStyle = "#081222";
     ctx.fill();
     ctx.globalAlpha = fade * clamp((zoom - 1.5) / 1.5); // Name erst beim Heranzoomen, sonst läuft er beim Drehen über den Hero-Text
-    label(HOME.label, x, y, -1, 700, 13, "#09090B");   // links vom Punkt, die Bögen laufen nach Osten
+    label(HOME.label, x, y, -1, 700, 13, "#081222");   // links vom Punkt, die Bögen laufen nach Osten
     ctx.globalAlpha = 1;
   }
 
@@ -273,7 +273,7 @@
       var t = REDUCE ? 0.5 : ((now + (a * ARC_MS) / cities.length) % ARC_MS) / ARC_MS;
       var head = REDUCE ? 1 : ease(t / 0.4), tail = REDUCE ? 0 : ease((t - 0.62) / 0.38);
       var px = 0, py = 0;
-      ctx.fillStyle = "#09090B";
+      ctx.fillStyle = "#081222";
       if (head > tail) {
         ctx.beginPath();
         for (var j = 0; j <= ARC_STEPS; j++) {
@@ -283,7 +283,7 @@
           if (j === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
         }
         ctx.globalAlpha = 0.7 * show;
-        ctx.strokeStyle = "#09090B";
+        ctx.strokeStyle = "#081222";
         ctx.lineWidth = 1.4 * DPR;
         ctx.stroke();
         if (head < 1) {                             // laufender Punkt an der Spitze
@@ -308,9 +308,9 @@
       ctx.fill();
       ctx.beginPath();
       ctx.arc(x2, y2, 2.4 * DPR, 0, 2 * Math.PI);
-      ctx.fillStyle = "#09090B";
+      ctx.fillStyle = "#081222";
       ctx.fill();
-      label(CITIES[a].name, x2, y2, CITIES[a].side, 600, 11.5, "#52525B");
+      label(CITIES[a].name, x2, y2, CITIES[a].side, 600, 11.5, "#57677E");
     }
     ctx.globalAlpha = 1;
   }

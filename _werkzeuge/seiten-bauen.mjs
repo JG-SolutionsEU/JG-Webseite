@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const SRC = ROOT + "_werkzeuge/seiten/";
-const VERSION = 7; // bei CSS/JS-Änderungen erhöhen (Cache)
+const VERSION = 8; // bei CSS/JS-Änderungen erhöhen (Cache)
 
 export const SITE = {
   name: "JG Solutions",
@@ -82,8 +82,8 @@ export const icon = (name, cls = "") => {
   return `<svg${cls ? ` class="${cls}"` : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
 };
 
-/* Original-Logo: schwarz auf hellem Grund, weiß im schwarzen Footer */
-const brand = (root, color = "schwarz") =>
+/* Logo in Markenblau (#2E90FF), oben und im dunkelblauen Footer */
+const brand = (root, color = "blau") =>
   `<a class="brand" href="${root || "./"}" aria-label="${SITE.name}, zur Startseite"><img class="brand-logo" src="${root}assets/logo/logo-${color}-114.webp" alt="" width="46" height="32"${color === "weiss" ? ' loading="lazy" decoding="async"' : ""}><span class="brand-name">JG Solutions</span></a>`;
 
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -130,7 +130,7 @@ function footer(root) {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        ${brand(root, "weiss")}
+        ${brand(root)}
         <p><b>${SITE.name}</b> · ${SITE.owner}</p>
         <address>${SITE.street}<br>${SITE.zip} ${SITE.city}<br>Deutschland</address>
         <p><a href="mailto:${SITE.email}">${SITE.email}</a><br><a href="tel:${SITE.tel}">${SITE.phone}</a></p>
@@ -283,7 +283,7 @@ ${meta.robots?.startsWith("noindex") ? "" : `<link rel="canonical" href="${url}"
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">${jsonLd(meta, url)}</script>
-<meta name="theme-color" content="#FBFBF8">
+<meta name="theme-color" content="#F4F8FD">
 <link rel="icon" href="${root}assets/logo/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="${root}apple-touch-icon.png">
 <link rel="manifest" href="${root}site.webmanifest">

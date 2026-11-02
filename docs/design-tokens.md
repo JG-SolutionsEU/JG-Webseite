@@ -4,22 +4,26 @@
 **Quellen:** (1) Live-Messung der berechneten Styles von https://jlconsulting.ch/ am 2026-10-30 · (2) Tailwind-CSS-Farbpalette „zinc“ (tailwindcss.com/docs/colors).
 Single Source of Truth für `css/style.css`.
 
-## Farben
+## Farben (seit 2026-11-02: Markenfarben von jg-solutions.eu)
+Layout und Typografie bleiben im JL-Stil, die Farben kommen von der bisherigen Seite (gemessen auf https://jg-solutions.eu/ am 2026-11-02).
 | Token | Wert | Quelle / Einsatz |
 |---|---|---|
-| `--c-ink` | `#09090B` | zinc-950 – Überschriften, dunkle Sektionen (gemessen: `oklch(0.141 0.005 285.823)`) |
-| `--c-text` | `#18181B` | zinc-900 – Body-Text (gemessen `rgb(24,24,27)`) |
-| `--c-muted` | `#52525B` | zinc-600 – Fließtext/Lead (gemessen `oklch(0.442 0.017 285.786)`) |
-| `--c-subtle` | `#71717A` | zinc-500 – Meta-Text |
-| `--c-dots` | `#A1A1AA` | zinc-400 – Punkte Karte/Globus |
-| `--c-line` | `#E4E4E7` | zinc-200 – Rahmen, Trennlinien (gemessen) |
-| `--c-fill` | `#F4F4F5` | zinc-100 – aktiver Nav-Link (gemessen) |
-| `--c-bg` | `#FBFBF8` | Seitenhintergrund (gemessen `rgb(251,251,248)`) |
-| `--c-white` | `#FFFFFF` | Karten, Header (88 % Deckkraft + blur 8px) |
-| `--c-black` | `#000000` | Buttons primär, Kontakt-Sektion |
-| `--c-on-dark-muted` | `#A1A1AA` | zinc-400 – Text auf dunkel |
-| `--c-dark-field` | `#18181B` | zinc-900 – Formularfeld auf dunkel |
-| `--c-dark-line` | `#27272A` | zinc-800 – Rahmen auf dunkel |
+| `--c-brand` | `#2E90FF` | Logo-Blau – Logo, Icon-Kacheln, Häkchen, Deutschland auf der Kugel. Nur für Grafik, kein kleiner Text darauf (3,2:1). |
+| `--c-accent` | `#1767D0` | blue-600 – Buttons, Links, Fokus. Weißer Text darauf 5,4:1 (AA). |
+| `--c-hover` | `#145FC0` | blue-700 – Hover der Buttons |
+| `--c-navy` | `#0A1B33` | Navy – dunkle Sektionen |
+| `--c-black` | `#081222` | Heading-Navy – Footer, dunkelster Ton |
+| `--c-ink` | `#081222` | Überschriften |
+| `--c-text` | `#0E1B2E` | Body-Text |
+| `--c-muted` | `#57677E` | Fließtext/Lead |
+| `--c-subtle` | `#5F6E83` | Meta-Text (kontraststark) |
+| `--c-dots` | `#A9BBD1` | Rahmen bei Hover, helle Punkte |
+| `--c-line` | `#E3EBF4` | Rahmen, Trennlinien |
+| `--c-fill` | `#EAF1F9` | aktiver Nav-Link, Felder |
+| `--c-bg` | `#F4F8FD` | Seitenhintergrund (Surface) |
+| `--c-white` | `#FFFFFF` | Karten, Header |
+| `--c-on-dark` | `#A9BBD1` | Text auf Navy |
+| `--c-dark-line` | `#1D3354` | Rahmen auf Navy |
 
 ## Typografie (Inter, variable 100–900)
 | Stufe | Größe / Zeilenhöhe / Gewicht / Laufweite | Quelle |
@@ -49,7 +53,7 @@ Single Source of Truth für `css/style.css`.
 ## Buttons
 | Variante | Normal | Hover | Fokus | Deaktiviert |
 |---|---|---|---|---|
-| Primär | bg #000, Text #fff, Höhe 48px, Padding 0 24px, 14px/600, Pille | bg zinc-800 `#27272A` | 2px Outline zinc-950, Abstand 2px | Deckkraft .5, cursor not-allowed |
-| Sekundär | bg #fff, Text #000, 1px Rand #000 | bg zinc-100 `#F4F4F5` | wie primär | wie primär |
-| Auf dunkel | bg #fff, Text #000 | bg zinc-200 | Outline #fff | – |
+| Primär | bg `#1767D0`, Text #fff, Höhe 48px, Padding 0 24px, 14px/600, Pille | bg `#145FC0` | 2px Outline `#1767D0`, Abstand 2px | Deckkraft .5, cursor not-allowed |
+| Sekundär | bg #fff, Text und 1px Rand `#1767D0` | bg `#EAF1F9` | wie primär | wie primär |
+| Auf dunkel | bg #fff, Text `#145FC0` | bg zinc-200 | Outline #fff | – |
 | Nav-CTA | wie primär, Höhe 36px, 13px | wie primär | wie primär | – |
